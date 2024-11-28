@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -75,6 +76,17 @@ public final class DataBuku extends javax.swing.JFrame {
         } catch (SQLException e) {
             System.out.println("Terjadi error");
         }
+    }
+    
+    private boolean validateFields() {
+        if (kodebuku.getText().trim().isEmpty() || 
+            judulbuku.getText().trim().isEmpty() || 
+            penerbit.getText().trim().isEmpty() || 
+            pengarang.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Input tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -231,7 +243,7 @@ public final class DataBuku extends javax.swing.JFrame {
 
     
     private void ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahActionPerformed
-    
+        if (!validateFields()) return;
         
         String kode_buku = kodebuku.getText();
         String judul_buku = judulbuku.getText();
@@ -250,6 +262,8 @@ public final class DataBuku extends javax.swing.JFrame {
     }//GEN-LAST:event_ubahActionPerformed
 
     private void tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahActionPerformed
+        if (!validateFields()) return;
+        
         String kode_buku = kodebuku.getText();
         String judul_buku = judulbuku.getText();
         String pengarang_buku = pengarang.getText();
@@ -267,6 +281,8 @@ public final class DataBuku extends javax.swing.JFrame {
     }//GEN-LAST:event_tambahActionPerformed
 
     private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
+        if (!validateFields()) return;
+        
         String kode_buku = kodebuku.getText();
         
         String query = "delete from buku where kode_buku = ?";
