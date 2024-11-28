@@ -4,6 +4,7 @@
  */
 package koneksidatabase;
 
+import java.awt.HeadlessException;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -251,13 +252,18 @@ public final class DataBuku extends javax.swing.JFrame {
         String penerbit_buku = penerbit.getText();
         
         String query = "UPDATE buku SET judul_buku = ?, pengarang = ?, penerbit = ? WHERE kode_buku = ?";
-        boolean hasil = Koneksi.update(query, judul_buku, pengarang_buku, penerbit_buku, kode_buku);
         
-        if (hasil) {
-            System.out.println("berhasil mengubah buku");
-            loadData();
-        } else {
-            System.out.println("Gagal mengubah buku");
+        try {
+            boolean hasil = Koneksi.update(query, judul_buku, pengarang_buku, penerbit_buku, kode_buku);
+            if (hasil) {
+                JOptionPane.showMessageDialog(this, "Berhasil mengubah buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                loadData();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal mengubah buku.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e);
         }
     }//GEN-LAST:event_ubahActionPerformed
 
@@ -270,13 +276,18 @@ public final class DataBuku extends javax.swing.JFrame {
         String penerbit_buku = penerbit.getText();
         
         String query = "insert into buku (kode_buku, judul_buku, pengarang, penerbit) values (?, ?, ?, ?)";
-        boolean hasil = Koneksi.insert(query, kode_buku, judul_buku, pengarang_buku, penerbit_buku);
         
-        if (hasil) {
-            System.out.println("Berhasil menambah buku");
-            loadData();
-        } else {
-            System.out.println("Gagal menambah buku");
+        try {
+            boolean hasil = Koneksi.insert(query, kode_buku, judul_buku, pengarang_buku, penerbit_buku);
+            if (hasil) {
+                JOptionPane.showMessageDialog(this, "Berhasil menambahkan buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                loadData();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menambahkan buku.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e);
         }
     }//GEN-LAST:event_tambahActionPerformed
 
@@ -284,15 +295,19 @@ public final class DataBuku extends javax.swing.JFrame {
         if (!validateFields()) return;
         
         String kode_buku = kodebuku.getText();
-        
         String query = "delete from buku where kode_buku = ?";
-        boolean hasil = Koneksi.delete(query, kode_buku);
         
-        if (hasil) {
-            System.out.println("berhasil menghapus buku");
-            loadData();
-        } else {
-            System.out.println("gagal menghapus buku");
+        try {
+            boolean hasil = Koneksi.delete(query, kode_buku);
+            if (hasil) {
+                JOptionPane.showMessageDialog(this, "Berhasil menghapus buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                loadData();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menghapus buku.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e);
         }
     }//GEN-LAST:event_hapusActionPerformed
 
