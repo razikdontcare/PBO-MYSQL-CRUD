@@ -89,6 +89,14 @@ public final class DataBuku extends javax.swing.JFrame {
         }
         return true;
     }
+    
+    private void clearFields() {
+        kodebuku.setText("");
+        judulbuku.setText("");
+        penerbit.setText("");
+        pengarang.setText("");
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -282,6 +290,7 @@ public final class DataBuku extends javax.swing.JFrame {
             if (hasil) {
                 JOptionPane.showMessageDialog(this, "Berhasil menambahkan buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 loadData();
+                clearFields();
             } else {
                 JOptionPane.showMessageDialog(this, "Gagal menambahkan buku.", "Error", JOptionPane.ERROR_MESSAGE);
             }
