@@ -266,6 +266,7 @@ public final class DataBuku extends javax.swing.JFrame {
             if (hasil) {
                 JOptionPane.showMessageDialog(this, "Berhasil mengubah buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 loadData();
+                clearFields();
             } else {
                 JOptionPane.showMessageDialog(this, "Gagal mengubah buku.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -311,6 +312,7 @@ public final class DataBuku extends javax.swing.JFrame {
             if (hasil) {
                 JOptionPane.showMessageDialog(this, "Berhasil menghapus buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 loadData();
+                clearFields();
             } else {
                 JOptionPane.showMessageDialog(this, "Gagal menghapus buku.", "Error", JOptionPane.ERROR_MESSAGE);
             }
