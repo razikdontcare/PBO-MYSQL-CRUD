@@ -32,6 +32,24 @@ public final class DataBuku extends javax.swing.JFrame {
         model.addColumn("Pengarang");
         model.addColumn("Penerbit");
         
+        TabelBuku.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int selectedRow = TabelBuku.getSelectedRow();
+                if (selectedRow != -1) {
+                    String kodeBuku = model.getValueAt(selectedRow, 0).toString();
+                    String judulBuku = model.getValueAt(selectedRow, 1).toString();
+                    String pengarangBuku = model.getValueAt(selectedRow, 2).toString();
+                    String penerbitBuku = model.getValueAt(selectedRow, 3).toString();
+
+                    kodebuku.setText(kodeBuku);
+                    judulbuku.setText(judulBuku);
+                    pengarang.setText(pengarangBuku);
+                    penerbit.setText(penerbitBuku);
+                }
+            }
+        });
+        
         loadData();
     }
     
@@ -210,7 +228,11 @@ public final class DataBuku extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+    
     private void ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahActionPerformed
+    
+        
         String kode_buku = kodebuku.getText();
         String judul_buku = judulbuku.getText();
         String pengarang_buku = pengarang.getText();
