@@ -264,9 +264,9 @@ public final class DataBuku extends javax.swing.JFrame {
         try {
             boolean hasil = Koneksi.update(query, judul_buku, pengarang_buku, penerbit_buku, kode_buku);
             if (hasil) {
-                JOptionPane.showMessageDialog(this, "Berhasil mengubah buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 loadData();
                 clearFields();
+                JOptionPane.showMessageDialog(this, "Berhasil mengubah buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Gagal mengubah buku.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -289,9 +289,9 @@ public final class DataBuku extends javax.swing.JFrame {
         try {
             boolean hasil = Koneksi.insert(query, kode_buku, judul_buku, pengarang_buku, penerbit_buku);
             if (hasil) {
-                JOptionPane.showMessageDialog(this, "Berhasil menambahkan buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 loadData();
                 clearFields();
+                JOptionPane.showMessageDialog(this, "Berhasil menambahkan buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Gagal menambahkan buku.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -310,9 +310,9 @@ public final class DataBuku extends javax.swing.JFrame {
         try {
             boolean hasil = Koneksi.delete(query, kode_buku);
             if (hasil) {
-                JOptionPane.showMessageDialog(this, "Berhasil menghapus buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 loadData();
                 clearFields();
+                JOptionPane.showMessageDialog(this, "Berhasil menghapus buku.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Gagal menghapus buku.", "Error", JOptionPane.ERROR_MESSAGE);
             }
