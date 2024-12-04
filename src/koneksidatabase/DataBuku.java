@@ -19,47 +19,30 @@ import javax.swing.JOptionPane;
 public final class DataBuku extends javax.swing.JFrame {
 
     private final DefaultTableModel model;
+
     /**
      * Creates new form DataBuku
      */
     public DataBuku() {
         initComponents();
-        
+
         model = new DefaultTableModel();
-        
+
         TabelBuku.setModel(model);
-        
+
         model.addColumn("Kode Buku");
         model.addColumn("Judul Buku");
         model.addColumn("Pengarang");
         model.addColumn("Penerbit");
-        
-        TabelBuku.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int selectedRow = TabelBuku.getSelectedRow();
-                if (selectedRow != -1) {
-                    String kodeBuku = model.getValueAt(selectedRow, 0).toString();
-                    String judulBuku = model.getValueAt(selectedRow, 1).toString();
-                    String pengarangBuku = model.getValueAt(selectedRow, 2).toString();
-                    String penerbitBuku = model.getValueAt(selectedRow, 3).toString();
 
-                    kodebuku.setText(kodeBuku);
-                    judulbuku.setText(judulBuku);
-                    pengarang.setText(pengarangBuku);
-                    penerbit.setText(penerbitBuku);
-                }
-            }
-        });
-        
         loadData();
     }
-    
+
     public void loadData() {
         model.getDataVector().removeAllElements();
-        
+
         model.fireTableDataChanged();
-        try{
+        try {
             Connection c = Koneksi.getKoneksi();
             Statement s = c.createStatement();
             String sql = "select * from buku";
@@ -78,25 +61,24 @@ public final class DataBuku extends javax.swing.JFrame {
             System.out.println("Terjadi error");
         }
     }
-    
+
     private boolean validateFields() {
-        if (kodebuku.getText().trim().isEmpty() || 
-            judulbuku.getText().trim().isEmpty() || 
-            penerbit.getText().trim().isEmpty() || 
-            pengarang.getText().trim().isEmpty()) {
+        if (kodebuku.getText().trim().isEmpty()
+                || judulbuku.getText().trim().isEmpty()
+                || penerbit.getText().trim().isEmpty()
+                || pengarang.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Input tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
     }
-    
+
     private void clearFields() {
         kodebuku.setText("");
         judulbuku.setText("");
         penerbit.setText("");
         pengarang.setText("");
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -137,6 +119,11 @@ public final class DataBuku extends javax.swing.JFrame {
                 "Kode Buku", "Judul Buku", "Pengarang", "Penerbit"
             }
         ));
+        TabelBuku.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelBukuMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TabelBuku);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -250,17 +237,18 @@ public final class DataBuku extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    
     private void ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubahActionPerformed
-        if (!validateFields()) return;
-        
+        if (!validateFields()) {
+            return;
+        }
+
         String kode_buku = kodebuku.getText();
         String judul_buku = judulbuku.getText();
         String pengarang_buku = pengarang.getText();
         String penerbit_buku = penerbit.getText();
-        
+
         String query = "UPDATE buku SET judul_buku = ?, pengarang = ?, penerbit = ? WHERE kode_buku = ?";
-        
+
         try {
             boolean hasil = Koneksi.update(query, judul_buku, pengarang_buku, penerbit_buku, kode_buku);
             if (hasil) {
@@ -277,15 +265,17 @@ public final class DataBuku extends javax.swing.JFrame {
     }//GEN-LAST:event_ubahActionPerformed
 
     private void tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahActionPerformed
-        if (!validateFields()) return;
-        
+        if (!validateFields()) {
+            return;
+        }
+
         String kode_buku = kodebuku.getText();
         String judul_buku = judulbuku.getText();
         String pengarang_buku = pengarang.getText();
         String penerbit_buku = penerbit.getText();
-        
+
         String query = "insert into buku (kode_buku, judul_buku, pengarang, penerbit) values (?, ?, ?, ?)";
-        
+
         try {
             boolean hasil = Koneksi.insert(query, kode_buku, judul_buku, pengarang_buku, penerbit_buku);
             if (hasil) {
@@ -302,11 +292,13 @@ public final class DataBuku extends javax.swing.JFrame {
     }//GEN-LAST:event_tambahActionPerformed
 
     private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
-        if (!validateFields()) return;
-        
+        if (!validateFields()) {
+            return;
+        }
+
         String kode_buku = kodebuku.getText();
         String query = "delete from buku where kode_buku = ?";
-        
+
         try {
             boolean hasil = Koneksi.delete(query, kode_buku);
             if (hasil) {
@@ -329,6 +321,21 @@ public final class DataBuku extends javax.swing.JFrame {
     private void judulbukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_judulbukuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_judulbukuActionPerformed
+
+    private void TabelBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelBukuMouseClicked
+        int selectedRow = TabelBuku.getSelectedRow();
+        if (selectedRow != -1) {
+            String kodeBuku = model.getValueAt(selectedRow, 0).toString();
+            String judulBuku = model.getValueAt(selectedRow, 1).toString();
+            String pengarangBuku = model.getValueAt(selectedRow, 2).toString();
+            String penerbitBuku = model.getValueAt(selectedRow, 3).toString();
+
+            kodebuku.setText(kodeBuku);
+            judulbuku.setText(judulBuku);
+            pengarang.setText(pengarangBuku);
+            penerbit.setText(penerbitBuku);
+        }
+    }//GEN-LAST:event_TabelBukuMouseClicked
 
     /**
      * @param args the command line arguments
